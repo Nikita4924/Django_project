@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Register | Arasaka Core{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="form-container">
+        <h1 class="glitch-text">REGISTER</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- User fields -->
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="error">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Profile fields -->
+            <div class="form-group">
+                <label for="id_bio">Bio</label>
+                {{ profile_form.bio }}
+                {% if profile_form.bio.errors %}
+                    <div class="error">{{ profile_form.bio.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_avatar">Avatar</label>
+                {{ profile_form.avatar }}
+                {% if profile_form.avatar.errors %}
+                    <div class="error">{{ profile_form.avatar.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_rank">Rank</label>
+                {{ profile_form.rank }}
+                {% if profile_form.rank.errors %}
+                    <div class="error">{{ profile_form.rank.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_neon_color">Neon Color</label>
+                {{ profile_form.neon_color }}
+                {% if profile_form.neon_color.errors %}
+                    <div class="error">{{ profile_form.neon_color.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <a href="{% url 'login' %}" class="btn-cyber btn-left">&lt; BACK TO LOGIN</a>
+                <button type="submit" class="btn-cyber btn-right">SIGN UP</button>
+            </div>
+        </form>
+
+        <!-- Global form errors -->
+        {% if form.non_field_errors %}
+            <div class="error">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% if profile_form.non_field_errors %}
+            <div class="error">{{ profile_form.non_field_errors }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

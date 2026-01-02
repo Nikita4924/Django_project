@@ -1,0 +1,546 @@
+/* === Базовые стили === */
+body {
+  background-color: #000;
+  color: #ccc;
+  font-family: 'Share Tech Mono', 'Consolas', monospace;
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 0 5px #ff0033;
+}
+
+/* === Заголовки === */
+h1, h2, h3 {
+  color: #ff3366;
+  text-shadow: 0 0 8px #ff0033, 0 0 16px #ff66cc;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%   { text-shadow: 0 0 5px #ff0033; }
+  50%  { text-shadow: 0 0 20px #ff66cc; }
+  100% { text-shadow: 0 0 5px #ff0033; }
+}
+
+/* === Киберпанковская панель === */
+.cyber-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0a0a0a;
+  border-bottom: 2px solid #ff0033;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 15px #ff0033;
+  font-family: 'Share Tech Mono', monospace;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.panel-left .logo-glitch {
+  color: #ff3366;
+  font-size: 1.5rem;
+  text-shadow: 0 0 8px #ff0033, 0 0 16px #ff66cc;
+  animation: pulse 2s infinite;
+  letter-spacing: 2px;
+}
+
+.panel-right a {
+  margin-left: 1.5rem;
+  color: #0ff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #0ff;
+  position: relative;
+}
+
+.panel-right a:hover {
+  color: #ff3366;
+  text-shadow: 0 0 10px #ff3366;
+}
+
+.panel-right a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #ff0033;
+  transition: width 0.3s ease;
+}
+
+.panel-right a:hover::after {
+  width: 100%;
+}
+
+.panel-right a.active {
+  color: #ff3366;
+  text-shadow: 0 0 10px #ff0033, 0 0 20px #ff66cc;
+  animation: glitch 0.4s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: translate(0); }
+}
+
+/* === Кнопки === */
+.btn-cyber {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border: 2px solid #0ff;
+  background: transparent;
+  color: #0ff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #0ff, inset 0 0 10px #0ff;
+}
+
+.btn-cyber:hover {
+  color: #ff0033;
+  border-color: #ff0033;
+  box-shadow: 0 0 15px #ff0033, inset 0 0 15px #ff0033;
+  text-shadow: 0 0 5px #ff0033, 0 0 15px #ff3366;
+}
+
+.btn-cyber::before,
+.btn-cyber::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: rgba(255, 0, 51, 0.2);
+  transform: skewX(-20deg);
+}
+
+.btn-cyber::before { animation: glitch-slide 2s infinite; }
+.btn-cyber::after {
+  animation: glitch-slide 3s infinite;
+  background: rgba(0, 255, 255, 0.2);
+}
+
+@keyframes glitch-slide {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: -100%; }
+}
+
+/* === Формы === */
+.form-container input,
+.form-container select,
+.form-container textarea {
+  background: #000;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 0.75rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: 0 0 5px #0ff;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+  color: #0ff;
+  opacity: 0.8;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #ff0033;
+  box-shadow: 0 0 10px #ff0033, 0 0 20px #ff3366;
+}
+
+.form-container {
+  background: #0a0a0a;
+  padding: 2.5rem;
+  border: 2px solid #ff0033;
+  box-shadow: 0 0 20px #ff0033;
+  width: 500px;
+  text-align: center;
+  margin: 11rem auto;
+  color: #0ff;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+/* === Таблицы === */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0a0a0a;
+  color: #0ff;
+  font-family: 'Courier New', monospace;
+}
+
+.task-table th, .task-table td {
+  border: 1px solid #ff0033;
+  padding: 0.75rem;
+}
+
+.task-table tr:hover {
+  background: rgba(255, 0, 51, 0.2);
+  transition: 0.2s;
+}
+
+/* === Logout экран === */
+.logout-screen {
+  text-align: center;
+  padding: 60px;
+  border: 2px solid #ff0033;
+  box-shadow: 0 0 20px #ff0033, inset 0 0 40px #0ff;
+  background: rgba(0, 0, 0, 0.85);
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+.glitch-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff0033;
+  text-shadow: 0 0 5px #ff0033, 0 0 15px #ff66cc, 0 0 30px #ff0033;
+  animation: glitch 1s infinite;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* === PROFILE & EDIT PROFILE === */
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 3rem;
+}
+
+.profile-card {
+  border: 2px solid #ff0033;
+  padding: 2rem;
+  background: #000;
+  box-shadow: 0 0 20px #ff0033;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* === PROFILE & EDIT PROFILE === */
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 3rem;
+}
+
+.profile-card {
+  border: 2px solid #ff0033;
+  padding: 2rem;
+  background: #000;
+  box-shadow: 0 0 20px #ff0033;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Аватар */
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #ff0033;
+  box-shadow: 0 0 10px #ff0033;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px dashed #ff0033;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff0033;
+  font-family: 'Share Tech Mono', monospace;
+  margin: 0 auto 1rem;
+  font-size: 0.9rem;
+  text-shadow: 0 0 5px #ff0033, 0 0 10px #ff3366;
+}
+
+/* Разделитель */
+.neon-divider {
+  border: 1px solid #ff0033;
+  box-shadow: 0 0 10px #ff0033, 0 0 20px #ff66cc;
+  margin: 1.5rem 0;
+}
+
+/* Matrix Criteria */
+.matrix-criteria {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.criterion {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+}
+
+/* Звёзды */
+.stars {
+  color: #ff0033;
+  font-size: 1.1rem;
+  text-shadow: 0 0 5px #ff0033, 0 0 10px #ff66cc;
+  letter-spacing: 3px;
+}
+
+/* Прогресс-бары */
+.progress-bar {
+  background: #111;
+  border: 1px solid #ff0033;
+  border-radius: 6px;
+  height: 14px;
+  width: 70%;
+  margin-left: 1rem;
+  box-shadow: 0 0 5px #ff0033 inset;
+  overflow: hidden;
+}
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #ff0033, #ff66cc, #0ff);
+  box-shadow: 0 0 10px #ff0033, 0 0 20px #ff66cc;
+  transition: width 0.6s ease;
+}
+
+/* Круговые индикаторы */
+.radial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+.radial-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.circular-chart {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+.circle-bg {
+  fill: none;
+  stroke: #222;
+  stroke-width: 3.8;
+}
+.circle {
+  fill: none;
+  stroke: #ff0033;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease;
+  filter: drop-shadow(0 0 5px #ff0033);
+}
+.percentage {
+  fill: #0ff;
+  font-size: 0.4rem;
+  text-anchor: middle;
+  transform: rotate(90deg);
+  text-shadow: 0 0 5px #0ff;
+}
+.radial-label {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+  text-align: center;
+}
+
+/* QR-блок */
+.qr-wrapper {
+  margin-top: 2rem;
+  text-align: center;
+}
+.qr-wrapper img {
+  width: 120px;
+  box-shadow: 0 0 10px #ff0033;
+  border: 2px solid #ff0033;
+  border-radius: 8px;
+}
+.qr-wrapper p {
+  margin-top: 0.5rem;
+  color: #ff3366;
+  font-size: 0.9rem;
+  text-shadow: 0 0 5px #ff0033;
+  text-transform: uppercase;
+}
+
+/* Кнопки действий в профиле */
+.profile-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+/* Переключатель режимов */
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+.mode-switch .btn-cyber.active {
+  border-color: #ff0033;
+  color: #ff0033;
+  box-shadow: 0 0 10px #ff0033, inset 0 0 10px #ff0033;
+  text-shadow: 0 0 5px #ff0033;
+}
+
+
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #ff3366;
+  font-size: 0.9rem;
+  text-shadow: 0 0 5px #ff0033;
+  text-transform: uppercase;
+}
+
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.avatar-edit {
+  margin-bottom: 0.5rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.avatar-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* === Альтернативная тема с глитч-эффектом === */
+.alt-theme {
+  background-color: #111;
+  color: #0ff;
+  animation: glitch-bg 1s steps(2, end);
+}
+
+/* Панель */
+.alt-theme .cyber-panel {
+  background: #111;
+  border-bottom: 2px solid #0ff;
+  box-shadow: 0 0 15px #0ff;
+  animation: glitch-panel 0.8s steps(2, end);
+}
+
+/* Логотип */
+.alt-theme .logo-glitch {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 16px #ff3366;
+  animation: glitch-text 1s infinite;
+}
+
+/* Ссылки */
+.alt-theme .panel-right a {
+  color: #ff3366;
+  text-shadow: 0 0 5px #ff3366;
+}
+.alt-theme .panel-right a:hover {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+
+/* Кнопки */
+.alt-theme .btn-cyber {
+  border-color: #ff3366;
+  color: #ff3366;
+  box-shadow: 0 0 10px #ff3366, inset 0 0 10px #ff3366;
+  animation: glitch-btn 0.6s steps(2, end);
+}
+
+/* === Анимации глитча === */
+@keyframes glitch-bg {
+  0% { background-color: #000; }
+  20% { background-color: #222; }
+  40% { background-color: #111; }
+  60% { background-color: #000; }
+  80% { background-color: #222; }
+  100% { background-color: #111; }
+}
+
+@keyframes glitch-panel {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-text {
+  0% { text-shadow: 2px 0 #ff3366, -2px 0 #0ff; }
+  20% { text-shadow: -2px 0 #ff3366, 2px 0 #0ff; }
+  40% { text-shadow: 2px 2px #ff3366, -2px -2px #0ff; }
+  60% { text-shadow: -2px -2px #ff3366, 2px 2px #0ff; }
+  80% { text-shadow: 2px -2px #ff3366, -2px 2px #0ff; }
+  100% { text-shadow: 0 0 8px #0ff, 0 0 16px #ff3366; }
+}
+
+@keyframes glitch-btn {
+  0% { box-shadow: 0 0 5px #ff3366; }
+  50% { box-shadow: 0 0 20px #0ff; }
+  100% { box-shadow: 0 0 10px #ff3366; }
+}

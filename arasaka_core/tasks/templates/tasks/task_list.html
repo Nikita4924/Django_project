@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="task-container" style="padding:2rem;">
+
+    <!-- Заголовок -->
+    <h1 class="glitch-transition" 
+        style="text-align:center;margin-bottom:2rem;color:#ff0033;text-shadow:0 0 10px #ff0033,0 0 20px #ff3366;">
+        TASKS FOR NIKITA.0
+    </h1>
+
+    <!-- Таблица -->
+    <table class="task-table" style="width:100%;border:2px solid #ff0033;box-shadow:0 0 15px #ff0033;">
+        <thead>
+            <tr style="color:#0ff;text-transform:uppercase;">
+                <th>Title</th>
+                <th>Status</th>
+                <th>Due date</th>
+                <th>Completed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.get_status_display }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>
+                    {% if task.completed %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'task_toggle' task.id %}" class="btn-cyber">Toggle</a>
+                    <a href="{% url 'task_edit' task.id %}" class="btn-cyber">Edit</a>
+                    <a href="{% url 'task_delete' task.id %}" class="btn-cyber">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align:center;color:#ff0033;text-shadow:0 0 10px #ff0033;">
+                    NO TASKS YET. ADD ONE!
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Кнопка добавления -->
+    <div style="margin-top:2rem;text-align:center;">
+        <a href="{% url 'add_task' %}" 
+           class="btn-cyber" 
+           style="border:2px solid #ff0033;color:#0ff;padding:0.75rem 2rem;text-transform:uppercase;box-shadow:0 0 10px #ff0033;">
+           + ADD TASK
+        </a>
+    </div>
+
+</div>
+{% endblock %}

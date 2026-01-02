@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% load profile_extras %}
+
+{% block title %}Profile | Arasaka Core{% endblock %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-card" style="border-color: {{ profile.neon_color }}">
+        <h1 class="glitch-text" data-text="PROFILE" style="color: {{ profile.neon_color }}">PROFILE</h1>
+
+        <!-- Аватар -->
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" class="avatar-preview">
+        {% else %}
+            <div class="avatar-placeholder">NO AVATAR</div>
+        {% endif %}
+
+        <!-- Основные данные -->
+        <p><strong>RANK:</strong> {{ profile.rank|default:"N/A" }}</p>
+        <p><strong>BIO:</strong> {{ profile.bio|default:"No bio provided" }}</p>
+        <p><strong>NEON COLOR:</strong> 
+            <span style="color: {{ profile.neon_color }}">{{ profile.neon_color }}</span>
+        </p>
+
+        <hr class="neon-divider" style="border-color: {{ profile.neon_color }};">
+
+        <!-- Переключатель -->
+        <div class="mode-switch">
+            <a href="?mode=stars" class="btn-cyber {% if mode == 'stars' %}active{% endif %}">★ STARS</a>
+            <a href="?mode=bars" class="btn-cyber {% if mode == 'bars' %}active{% endif %}">▮ BARS</a>
+            <a href="?mode=radial" class="btn-cyber {% if mode == 'radial' %}active{% endif %}">◎ RADIAL</a>
+        </div>
+
+        <!-- MATRIX CRITERIA -->
+        <div class="matrix-criteria">
+            <h3 class="glitch-text">MATRIX CRITERIA</h3>
+
+            {% if mode == "stars" %}
+                <div class="criterion"><span>STRUCTURE</span><span class="stars">{{ profile.structure_rating|stars }}</span></div>
+                <div class="criterion"><span>CONTENT</span><span class="stars">{{ profile.content_rating|stars }}</span></div>
+                <div class="criterion"><span>STYLE</span><span class="stars">{{ profile.style_rating|stars }}</span></div>
+                <div class="criterion"><span>INTERACTIVITY</span><span class="stars">{{ profile.interactivity_rating|stars }}</span></div>
+                <div class="criterion"><span>NAVIGATION</span><span class="stars">{{ profile.navigation_rating|stars }}</span></div>
+                <div class="criterion"><span>FUNCTIONALITY</span><span class="stars">{{ profile.functionality_rating|stars }}</span></div>
+
+            {% elif mode == "bars" %}
+                {% for label, value in criteria %}
+                <div class="criterion">
+                    <span>{{ label }}</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ value|add:"0" }}0%;"></div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            {% elif mode == "radial" %}
+                <div class="radial-grid">
+                    {% for label, value in criteria %}
+                    <div class="radial-item">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                  d="M18 2.0845
+                                     a 15.9155 15.9155 0 0 1 0 31.831
+                                     a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle"
+                                  stroke-dasharray="{{ value|add:"0" }}0, 100"
+                                  d="M18 2.0845
+                                     a 15.9155 15.9155 0 0 1 0 31.831
+                                     a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <text x="18" y="20.35" class="percentage">{{ value }}/5</text>
+                        </svg>
+                        <div class="radial-label">{{ label }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <hr class="neon-divider" style="border-color: {{ profile.neon_color }};">
+
+        <!-- Контакты -->
+        <div class="matrix-criteria">
+            <h3 class="glitch-text">CONTACT</h3>
+            <p>📧 {{ profile.user.email }}</p>
+            {% if profile.github %}<p>⚡ GitHub: <a href="{{ profile.github }}" target="_blank">{{ profile.github }}</a></p>{% endif %}
+            {% if profile.telegram %}<p>⌬ Telegram: <a href="https://t.me/{{ profile.telegram }}" target="_blank">@{{ profile.telegram }}</a></p>{% endif %}
+        </div>
+
+        <!-- QR-код -->
+        {% if profile.qr_code %}
+        <div class="qr-wrapper">
+            <img src="{{ profile.qr_code.url }}" alt="QR Code">
+            <p>[QR://PORTFOLIO]</p>
+        </div>
+        {% endif %}
+
+        <hr class="neon-divider" style="border-color: {{ profile.neon_color }};">
+
+        <!-- Кнопки -->
+        <div class="profile-actions">
+            <a href="{% url 'edit_profile' %}" class="btn-cyber">EDIT PROFILE</a>
+            <a href="{% url 'logout' %}" class="btn-cyber">LOGOUT</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

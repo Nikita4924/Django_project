@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile | Arasaka Core{% endblock %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-card">
+        <h1 class="glitch-text" data-text="EDIT PROFILE">EDIT PROFILE</h1>
+
+        <form method="post" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
+
+            <!-- User info -->
+            <h3 class="glitch-text">ACCOUNT</h3>
+            <p><strong>Username:</strong> {{ request.user.username }}</p>
+            <div class="form-group">
+                <label for="id_email">EMAIL</label>
+                {{ form.user.email }}
+            </div>
+
+            <hr class="neon-divider">
+
+            <!-- Аватар -->
+            <h3 class="glitch-text">AVATAR</h3>
+            <div class="avatar-edit">
+                {% if form.instance.avatar %}
+                    <img src="{{ form.instance.avatar.url }}" class="avatar-preview">
+                    <label><input type="checkbox" name="avatar-clear"> Remove avatar</label>
+                {% else %}
+                    <div class="avatar-placeholder">NO AVATAR</div>
+                {% endif %}
+                {{ form.avatar }}
+            </div>
+
+            <hr class="neon-divider">
+
+            <!-- Основное -->
+            <h3 class="glitch-text">BASIC INFO</h3>
+            <div class="form-group">
+                <label for="id_rank">RANK</label>
+                {{ form.rank }}
+            </div>
+            <div class="form-group">
+                <label for="id_bio">BIO</label>
+                {{ form.bio }}
+            </div>
+            <div class="form-group">
+                <label for="id_neon_color">NEON COLOR</label>
+                {{ form.neon_color }}
+            </div>
+
+            <hr class="neon-divider">
+
+            <!-- Контакты -->
+            <h3 class="glitch-text">CONTACT</h3>
+            <div class="form-group">
+                <label for="id_github">GITHUB</label>
+                {{ form.github }}
+            </div>
+            <div class="form-group">
+                <label for="id_telegram">TELEGRAM</label>
+                {{ form.telegram }}
+            </div>
+            <div class="form-group">
+                <label for="id_qr_code">QR CODE</label>
+                {% if form.instance.qr_code %}
+                    <img src="{{ form.instance.qr_code.url }}" class="qr-preview">
+                    <label><input type="checkbox" name="qr_code-clear"> Remove QR</label>
+                {% endif %}
+                {{ form.qr_code }}
+            </div>
+
+            <hr class="neon-divider">
+
+            <!-- Matrix Criteria -->
+            <h3 class="glitch-text">MATRIX CRITERIA</h3>
+            <div class="criteria-grid">
+                <div class="form-group">
+                    <label for="id_structure_rating">STRUCTURE</label>
+                    {{ form.structure_rating }}
+                </div>
+                <div class="form-group">
+                    <label for="id_content_rating">CONTENT</label>
+                    {{ form.content_rating }}
+                </div>
+                <div class="form-group">
+                    <label for="id_style_rating">STYLE</label>
+                    {{ form.style_rating }}
+                </div>
+                <div class="form-group">
+                    <label for="id_interactivity_rating">INTERACTIVITY</label>
+                    {{ form.interactivity_rating }}
+                </div>
+                <div class="form-group">
+                    <label for="id_navigation_rating">NAVIGATION</label>
+                    {{ form.navigation_rating }}
+                </div>
+                <div class="form-group">
+                    <label for="id_functionality_rating">FUNCTIONALITY</label>
+                    {{ form.functionality_rating }}
+                </div>
+            </div>
+
+            <hr class="neon-divider">
+
+            <!-- Кнопки -->
+            <div class="form-actions">
+                <button type="submit" class="btn-cyber">SAVE CHANGES</button>
+                <a href="{% url 'profile' %}" class="btn-cyber">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
