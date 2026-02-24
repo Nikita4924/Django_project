@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}SESSION TERMINATED{% endblock %}
+
+{% block content %}
+<div class="form-container logout-screen">
+    <h1 class="glitch-text">SESSION TERMINATED</h1>
+    <p class="neon-text">Вы успешно вышли из системы.</p>
+    <a href="{% url 'login' %}" class="btn-cyber">Reconnect</a>
+</div>
+{% endblock %}

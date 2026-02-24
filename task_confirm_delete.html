@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="delete-container" style="display:flex;justify-content:center;align-items:center;min-height:100vh;flex-direction:column;">
+
+    <!-- Заголовок -->
+    <h1 style="color:#ff0033;text-shadow:0 0 15px #ff0033,0 0 25px #ff3366;margin-bottom:2rem;">
+        DELETE TASK?
+    </h1>
+
+    <!-- Подсказка -->
+    <p style="color:#0ff;text-shadow:0 0 8px #0ff;margin-bottom:2rem;">
+        Are you sure you want to delete: <strong>{{ task.title }}</strong> ?
+    </p>
+
+    <!-- Форма подтверждения -->
+    <form method="post" style="display:flex;gap:1rem;">
+        {% csrf_token %}
+        <button type="submit" class="btn-cyber" 
+                style="border:2px solid hsla(348, 100%, 50%, 1.00);color:#0ff;padding:0.75rem 2rem;box-shadow:0 0 10px #ff0033;">
+            CONFIRM
+        </button>
+<a href="{% url 'task_list' %}" class="btn-cyber" 
+   style="border:2px solid rgba(255, 0, 0, 1);
+          color:#0ff;
+          padding:0.75rem 2rem;
+          box-shadow:0 0 10px rgba(255, 38, 0, 1);">
+    CANCEL
+</a>
+
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Arasaka Core{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/cyberpunk.css' %}">
+</head>
+<body>
+
+{% if request.resolver_match %}
+    {% if request.resolver_match.url_name not in 'login register logout' %}
+        <nav class="cyber-panel">
+            <div class="panel-left">
+                <div class="logo-glitch">ARASAKA CORE</div>
+            </div>
+            <div class="panel-right">
+                <a href="{% url 'task_list' %}" 
+                   class="{% if request.resolver_match.url_name == 'task_list' %}active{% endif %}">
+                   Tasks
+                </a>
+                <a href="{% url 'add_task' %}" 
+                   class="{% if request.resolver_match.url_name == 'add_task' %}active{% endif %}">
+                   Add
+                </a>
+                <a href="#" class="disabled">Msg</a>
+
+                <a href="{% url 'profile' %}" 
+                   class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                   Profile
+                </a>
+                
+                <a href="#" 
+                   class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    Chat
+                </a>
+                
+
+                <!-- Кнопка теперь всегда доступна -->
+                <button id="theme-toggle" class="btn-cyber">Toggle Neon</button>
+
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cyber">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+    {% endif %}
+{% endif %}
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="{% static 'js/profile.js' %}"></script>
+</body>
+</html>
